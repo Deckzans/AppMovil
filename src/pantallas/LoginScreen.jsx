@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View,Image,Text,TextInput,TouchableOpacity,ToastAndroid} from 'react-native';
+import {View,Image,Text,TextInput,TouchableOpacity,ToastAndroid,Button} from 'react-native';
 import {Styles,colores} from '../Theme/AppTheme';
 import logInImage from '../images/rojo.jpg';
 import axios from 'axios';
@@ -27,10 +27,12 @@ export const LoginScreen = (props) => {
   }
 
   const handleSubmit = async () => { 
-    const response = await axios.post('http://10.0.0.7:5000/usuarios/ingresar',
+    
+    const response = await axios.post('https://back-production-862b.up.railway.app/usuarios/ingresar',
     usuario,
     );
 
+  
     if(response.data.resultado === 2) { 
       setUsuario(initialState); 
       cambiar(
@@ -41,9 +43,15 @@ export const LoginScreen = (props) => {
         response.data.token, 
       );
       ToastAndroid.show('datos Correctos', ToastAndroid.SHORT);
-      props.navigation.navigate('StackNavigator');
+      props.navigation.navigate('Menu');
     }
   };
+
+  const handleIr =  () => { 
+      props.navigation.navigate('Registar');
+  };
+
+  
 
  
   return (
@@ -74,6 +82,10 @@ export const LoginScreen = (props) => {
               <Text style={Styles.login_boton_texto} > Ingresar </Text>
         </View>
       </TouchableOpacity>
+      <Button
+        title="Ir a UsuariosRegistrar"
+        onPress={ handleIr }
+      />
 
     </View>
   )

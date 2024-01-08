@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image, ToastAndroid } from 'react-native';
-import { Styles } from '../Theme/AppTheme';
+import {Styles4,colores } from '../Theme/AppTheme';
 import { useUsuarioStore } from '../context/Contex';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 
 const initialState = {
   clave: '',
@@ -34,7 +35,7 @@ export const ProductoScreen = (props) => {
   }, []);
 
   const traerAmplificador = (cl) => {
-    axios.get(`http://10.0.0.7:5000/amplificador/traer/${cl}`)
+    axios.get(`https://back-production-862b.up.railway.app/amplificador/traer/${cl}`)
       .then(function (response) {
         SetAmpli(response.data[0])
       })
@@ -60,49 +61,37 @@ export const ProductoScreen = (props) => {
       }
     }
 
-    const response = await axios.post(`http://10.0.0.7:5000/carrito/agregar`, producto, config);
+    const response = await axios.post(`https://back-production-862b.up.railway.app/carrito/agregar`, producto, config);
     if (response.data.status === 200) {
       ToastAndroid.show('Producto agregado al carrito', ToastAndroid.SHORT);
       navigation.navigate('Home');
     }
   }
 
-
-
   return (
-    <View style={Styles.containter_producto} >
+    <View style={Styles4.container} >
       <Image
         source={{
-          uri: `http://10.0.0.7:5000/img/avatar/${foto}`
+          uri: `https://back-production-862b.up.railway.app/img/avatar/${foto}`
         }}
-        style={Styles.avatar_productos}
+        style={Styles4.avatar}
       />
-      <Text style={Styles.title}>{nombre} </Text>
-      <Text style={Styles.texto_producto1}>Clave: {clave} </Text>
-      <Text style={Styles.texto_producto1}>Linea: {linea} </Text>
-      <Text style={Styles.texto_producto1}>Modelo: {modelo} </Text>
-      <Text style={Styles.texto_producto1}>Marca: {marca} </Text>
-      <Text style={Styles.texto_producto1}>Potencia: {potencia} </Text>
-      <Text style={Styles.texto_producto1}>Clase: {clase} </Text>
-      <Text style={Styles.texto_producto1}>Canales: {canales} </Text>
-      <Text style={Styles.texto_producto1}>Precio: {precio} </Text>
-      <Text style={Styles.texto_producto1}>Color: {color} </Text>
-      <Text style={Styles.texto_producto1}>Cantidad: {cantidad} </Text>
-      <Text style={Styles.texto_producto1}>Descripcion: {descripcion} </Text>
-      <TouchableOpacity
-        onPress={() => mandarCarrito()}
-      >
-        <View style={Styles.boton_producto} >
-          <Icon name="bag-handle-sharp" size={30} color="#900" />
-          <Text style={Styles.menuTexto}>Enviar al carrito </Text>
+      <Text style={Styles4.title}>{nombre} </Text>
+      <Text style={Styles4.texto_producto1}>Modelo: {modelo} </Text>
+      <Text style={Styles4.texto_producto1}>Marca: {marca} </Text>
+      <Text style={Styles4.texto_producto1}>Clase: {clase} </Text>
+      <Text style={Styles4.texto_producto1}>Precio: {precio} </Text>
+      <Text style={Styles4.texto_producto1}>Color: {color} </Text>
+      <Text style={Styles4.texto_producto1}>Cantidad: {cantidad} </Text>
+      <Text style={Styles4.texto_producto1}>Descripcion: {descripcion} </Text>
+      <TouchableOpacity onPress={() => mandarCarrito()}>
+        <View style={Styles4.boton_producto} >
+          <Icon name="bag-handle-sharp" size={30} color={colores.siete} />
+          <Text style={Styles4.menuTexto}>Enviar al carrito </Text>
         </View>
-
       </TouchableOpacity>
-
-
     </View>
   )
 }
-
 
 export default ProductoScreen;

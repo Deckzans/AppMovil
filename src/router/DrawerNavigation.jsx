@@ -1,11 +1,13 @@
 import { DrawerContentScrollView, createDrawerNavigator } from '@react-navigation/drawer';
 import StackNavigation from './StackNavigation';
 import LoginScreen from '../pantallas/LoginScreen';
+import PublicidadScreen from '../pantallas/PublicidadScreen';
 import CarritoScreen from '../pantallas/CarritoScreen';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { Styles } from '../Theme/AppTheme';
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useUsuarioStore } from '../context/Contex'
+import RegistrarScreen from '../pantallas/RegistarScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,8 +22,10 @@ function DrawerNavigation() {
         },
       }}
     >
+      <Drawer.Screen name="Bienvenido de Nuevo" component={PublicidadScreen} />
       <Drawer.Screen name="Login" component={LoginScreen} />
-      <Drawer.Screen name="StackNavigator" component={StackNavigation} />
+      <Drawer.Screen name="Registar" component={RegistrarScreen} />
+      <Drawer.Screen name="Menu" component={StackNavigation} />
       <Drawer.Screen name="Carrito" component={CarritoScreen} />
     </Drawer.Navigator>
   );
@@ -40,7 +44,7 @@ const MenuInterno = (props) => {
       <View style={Styles.avatarContainer}>
         <Image
           // source={{ uri: `http://10.0.2.2:5000/img/usuarios/${fotoUsuario}` }}
-          source={{ uri: `http://10.0.0.7:5000/img/usuarios/${fotoUsuario}`}}
+          source={{ uri: `https://back-production-862b.up.railway.app/img/usuarios/${fotoUsuario}`}}
 
           style={Styles.avatar}
         />
@@ -52,7 +56,7 @@ const MenuInterno = (props) => {
           <View style={Styles.menuContainer}>
             <TouchableOpacity
               style={Styles.MenuBoton}
-              onPress={() => props.navigation.navigate('StackNavigator')}>
+              onPress={() => props.navigation.navigate('Menu')}>
               <View style={{ alignItems: 'center' }} >
                 <Icon name='bag-check-sharp' size={30} color='#D31616' />
                 <Text style={Styles.menuTexto} >Ir a compras</Text>
